@@ -1,5 +1,4 @@
-{#{% load static %}"#}
-{% load staticfiles %}"
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -36,8 +35,23 @@
 						<div class="clear"></div>
 					</ul>
 				</div>
+                {% if request.session.username %}
 				<div class="right fr">
-					<div class="gouwuche fr"><a href="">购物车</a></div>
+					<div class="gouwuche fr"><a href="{% url 'mall:cart' %}">购物车</a></div>
+					<div class="fr">
+						<ul>
+							<li><a href="{% url 'mall:center' %}" target="_blank">{{ request.session.username }}</a></li>
+							<li>|</li>
+							<li><a href="{% url 'mall:logout' %}" target="_blank" >退出</a></li>
+							<li>|</li>
+							<li><a href="">消息通知</a></li>
+						</ul>
+					</div>
+					<div class="clear"></div>
+				</div>
+                {% else %}
+                <div class="right fr">
+					<div class="gouwuche fr"><a href="{% url 'mall:cart' %}">购物车</a></div>
 					<div class="fr">
 						<ul>
 							<li><a href="{% url 'mall:login' %}" target="_blank">登录</a></li>
@@ -49,6 +63,7 @@
 					</div>
 					<div class="clear"></div>
 				</div>
+                {% endif %}
 				<div class="clear"></div>
 			</div>
 		</header>
@@ -56,19 +71,19 @@
 
 <!-- start banner_x -->
 		<div class="banner_x center">
-			<a href="./index.html" target="_blank"><div class="logo fl"></div></a>
+			<a href="{% url 'mall:index' %}" target="_blank"><div class="logo fl"></div></a>
 			<a href=""><div class="ad_top fl"></div></a>
 			<div class="nav fl">
 				<ul>
-					<li><a href="./liebiao.html" target="_blank">小米手机</a></li>
-					<li><a href="">红米</a></li>
-					<li><a href="">平板·笔记本</a></li>
-					<li><a href="">电视</a></li>
-					<li><a href="">盒子·影音</a></li>
-					<li><a href="">路由器</a></li>
-					<li><a href="">智能硬件</a></li>
-					<li><a href="">服务</a></li>
-					<li><a href="">社区</a></li>
+					<li><a href="{% url 'mall:list' %}" target="_blank">小米手机</a></li>
+					<li><a href="{% url 'mall:list1' %}">红米</a></li>
+					<li><a href="{% url 'mall:list2' %}">平板·笔记本</a></li>
+					<li><a href="{% url 'mall:list3' %}">电视</a></li>
+{#					<li><a href="">盒子·影音</a></li>#}
+					<li><a href="{% url 'mall:list4' %}">路由器</a></li>
+					<li><a href="{% url 'mall:list5' %}">智能硬件</a></li>
+					<li><a href="https://www.mi.com/service/">服务</a></li>
+					<li><a href="http://www.xiaomi.cn/">社区</a></li>
 				</ul>
 			</div>
 			<div class="search fr">
@@ -95,17 +110,21 @@
 						<a href="">电话卡</a>
 						<div class="pop">
 							<div class="left fl">
+
 								<div>
+
 									<div class="xuangou_left fl">
 										<a href="">
-											<div class="img fl"><img src="{% static 'image/xm5-80.jpg' %}" alt=""></div>
+											<div class="img fl"><img src="{% static 'image/xm6_80.png' %}" alt=""></div>
 											<span class="fl">小米6</span>
 											<div class="clear"></div>
 										</a>
 									</div>
-									<div class="xuangou_right fr"><a href="./xiangqing.html" target="_blank">选购</a></div>
+
+									<div class="xuangou_right fr"><a href="{% url 'mall:detail' %}" target="_blank">选购</a></div>
 									<div class="clear"></div>
 								</div>
+
 								<div>
 									<div class="xuangou_left fl">
 										<a href="">
@@ -160,7 +179,7 @@
 									</div>
 									<div class="xuangou_right fr"><a href="">选购</a></div>
 									<div class="clear"></div>
-								</div>								
+								</div>
 							</div>
 							<div class="ctn fl">
 								<div>

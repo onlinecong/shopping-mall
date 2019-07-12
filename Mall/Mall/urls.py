@@ -21,4 +21,5 @@ from django.conf.urls import url, include
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^mall/', include('userinfo.urls', namespace='mall')),
+    url(r"^captcha/",include('captcha.urls'))
 ]

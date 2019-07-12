@@ -4,6 +4,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from userinfo.models import UserInfo
+from captcha.fields import CaptchaField
 
 
 # 验证密码不是纯数字
@@ -51,7 +52,18 @@ class UserForm(forms.Form):
         else:
             return pwd1
 
-
+class LoginForm(forms.Form):
+    username = forms.CharField(label='用户名', min_length=3, error_messages={
+        'required': '必须输入用户名',
+        'min_length': '用户名长度不小于三个字符'
+    })
+    password = forms.CharField(label='密码', min_length=3, max_length=30, validators=[check_password],
+                               widget=forms.PasswordInput, error_messages={
+            'required': '必须输入密码',
+            'min_length': '密码长度不小于三个字符',
+            'max_length': '密码长度不大于30个字符'
+        })
+    captcha = CaptchaField(label='验证码',required=True,error_messages={'required':'验证码不能为空'})
 
 
 

@@ -36,13 +36,24 @@ class Address(models.Model):
 
 # 商品分类表
 class GoodsType(models.Model):
+    CATEGORY_TYPE = (
+        (1,'小米手机'),
+        (2,'红米'),
+        (3,'平板.笔记本'),
+        (4,'电视'),
+        (5,'盒子.影音'),
+        (6,'路由器'),
+        (7,'智能硬件'),
+        (8,'服务'),
+        (9,'社区'),
+    )
     # 分类名称
-    title = models.CharField(max_length=30)
+    category_type = models.IntegerField(choices=CATEGORY_TYPE,default=1)
     # 简介
-    desc = models.CharField(max_length=300)
+    introduce = models.CharField(max_length=300,null=True)
 
     def __str__(self):
-        return self.title
+        return self.category_type
     class Meta:
         db_table = 'goodstype'
 
@@ -50,10 +61,10 @@ class GoodsType(models.Model):
 class Goods(models.Model):
     title = models.CharField(max_length=30)
     price = models.DecimalField(max_digits=8,decimal_places=2)
-    desc = models.CharField(max_length=300)
-    details = models.CharField(max_length=500)
-    commments = models.CharField(max_length=500)
-    picture = models.ImageField(upload_to='static/image',default='xm5-80.jpg')
+    introduce = models.CharField(max_length=300,null=True)
+    details = models.CharField(max_length=500,null=True)
+    commments = models.CharField(max_length=500,null=True)
+    picture = models.ImageField(upload_to='static/image',default='xm5-80.jpg',null=True)
     type = models.ForeignKey(GoodsType,on_delete=models.CASCADE)
 
     def __str__(self):
@@ -63,9 +74,14 @@ class Goods(models.Model):
 
 # 购物车表
 class CartInfo(models.Model):
+    # 关联用户表
     user = models.ForeignKey(UserInfo,db_column='user_id')
+    # 关联商品表
     good = models.ForeignKey(Goods,db_column='good_id')
+    # 数量
     count = models.IntegerField(db_column='cart_count')
+    # 是否勾选
+    is_selected = models.BooleanField(default=True)
 
     def __str__(self):
         return self.user

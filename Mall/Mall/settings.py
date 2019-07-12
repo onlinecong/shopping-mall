@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'userinfo',
+    'captcha',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +137,12 @@ ORDERSTATUS = (
     (1,'已支付'),
     (2,'取消订单')
 )
+
+# 阿里短信验证码配置
+SMSCONFIG = {
+    'ACCESS_KEY_ID': "LTAIYg0BgAxEdOVu",
+    'ACCESS_KEY_SECRET':"3quTji0crY6nonJfLHhklJSJCoaAXG",
+    'SignName': "Python教学",
+    'TemplateCode': "SMS_161575260"
+
+}
